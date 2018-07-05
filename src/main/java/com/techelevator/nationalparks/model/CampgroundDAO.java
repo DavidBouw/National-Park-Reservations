@@ -1,5 +1,10 @@
 package com.techelevator.nationalparks.model;
 
-public class CampgroundDAO {
+import java.util.List;
 
+public interface CampgroundDAO {
+
+	public List<Campground> getAllCampgrounds();
+	
+	
 }
