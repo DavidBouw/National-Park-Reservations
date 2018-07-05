@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Reservation {
 
 	private long reservationId;
-	private long sideId;
+	private long siteId;
 	private String name;
 	private LocalDate fromDate;
 	private LocalDate toDate;
@@ -19,12 +19,12 @@ public class Reservation {
 		this.reservationId = reservationId;
 	}
 
-	public long getSideId() {
-		return this.sideId;
+	public long getSiteId() {
+		return this.siteId;
 	}
 
-	public void setSideId(long sideId) {
-		this.sideId = sideId;
+	public void setSiteId(long siteId) {
+		this.siteId = siteId;
 	}
 
 	public String getName() {

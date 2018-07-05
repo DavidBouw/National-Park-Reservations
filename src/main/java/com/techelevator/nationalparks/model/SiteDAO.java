@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface SiteDAO {
 
-	public List<Site> getAllSites();
-
+	public List<Site> getAvailableSites(Long campgroundId, LocalDate from_date,
+			LocalDate to_date);
+	
+	public Site getSiteById(Long siteId);
 }

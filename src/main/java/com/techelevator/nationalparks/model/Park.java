@@ -36,12 +36,15 @@ public class Park {
 		this.location = location;
 	}
 
-	public LocalDate getEstablishDate() {
+	public String getEstablishDate() {
+		
+		//TODO Implement String to LocalDate conversion here
+		
 		return this.establishDate;
 	}
 
-	public void setEstablishDate(LocalDate establishDate) {
-		this.establishDate = establishDate;
+	public void setEstablishDate(String string) {
+		this.establishDate = string;
 	}
 
 	public long getArea() {
