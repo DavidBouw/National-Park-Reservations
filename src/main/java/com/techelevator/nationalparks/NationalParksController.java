@@ -1,10 +1,10 @@
-package com.techelevator;
+package com.techelevator.nationalparks;
 
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 
-public class CampgroundCLI {
+public class NationalParksController {
 
 	public static void main(String[] args) {
 		BasicDataSource dataSource = new BasicDataSource();
@@ -12,11 +12,11 @@ public class CampgroundCLI {
 		dataSource.setUsername("postgres");
 		dataSource.setPassword("postgres1");
 		
-		CampgroundCLI application = new CampgroundCLI(dataSource);
+		NationalParksController application = new NationalParksController(dataSource);
 		application.run();
 	}
 
-	public CampgroundCLI(DataSource datasource) {
+	public NationalParksController(DataSource datasource) {
 		// create your DAOs here
 	}
 	
