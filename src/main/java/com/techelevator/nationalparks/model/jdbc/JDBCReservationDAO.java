@@ -26,27 +26,23 @@ public class JDBCReservationDAO implements ReservationDAO {
 		return reservation;
 	}
 
-	public void createNewReservation(Long siteId, String name, LocalDate fromDate, LocalDate toDate) {
-		String sqlInsertReservation = "INSERT INTO reservation (reservation_id, site_id, name, from_date, to_date, create_date) "
-				+ "VALUES(?, ?, ?. ?)";
+	public long createNewReservation(Long siteId, String name, LocalDate fromDate, LocalDate toDate) {
+		String sqlInsertReservation = "INSERT INTO reservation ( site_id, name, from_date, to_date, create_date) "
+				+ "VALUES(?, ?, ?, ?, ?) RETURNING reservation_id";
 		LocalDate createDate = LocalDate.now();
-		long reservationId = getNextReservationId();
-
-		jdbcTemplate.update(sqlInsertReservation, reservationId, siteId, name, fromDate, toDate, createDate);
+		long reservationId = jdbcTemplate.queryForObject(sqlInsertReservation, 
+				Long.class, 
+				siteId, 
+				name, 
+				fromDate, 
+				toDate, 
+				createDate);
+		return reservationId;
 	}
 
 	public void deleteReservation(long reservationId) {
 		String sqlDeleteReservation = "DELETE FROM reservation where reservation_id = ?";
 		jdbcTemplate.update(sqlDeleteReservation, reservationId);
-	}
-
-	private long getNextReservationId() {
-		SqlRowSet nextIdResult = jdbcTemplate.queryForRowSet("SELECT nextval('reservation_reservation_id_seq')");
-		if (nextIdResult.next()) {
-			return nextIdResult.getLong(1);
-		} else {
-			throw new RuntimeException("Something went wrong while getting an id for the new reservation");
-		}
 	}
 
 	private Reservation mapRowToReservation(SqlRowSet result) {
