@@ -66,4 +66,8 @@ public class Site {
 		this.utilities = utilities;
 	}
 
+	@Override
+	public String toString() {
+		return "";
+	}
 }

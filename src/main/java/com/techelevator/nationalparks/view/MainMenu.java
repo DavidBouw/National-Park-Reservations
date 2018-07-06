@@ -1,26 +1,25 @@
 package com.techelevator.nationalparks.view;
 
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Scanner;
 
+import com.techelevator.nationalparks.model.Park;
 import com.techelevator.nationalparks.model.ParkData;
 
-abstract class Menu {
+import java.io.PrintWriter;
 
-	private PrintWriter out;
+public class MainMenu extends Menu{
 	private Scanner in;
-
-	public Menu() {
-		this.out = new PrintWriter(System.out);
-		this.in = new Scanner(System.in);
+	private PrintWriter out;
+	
+	public MainMenu() {
+		super();
 	}
 	
-
-	abstract Object getChoiceFromOptions(List<ParkData> options);
-	
-	/*
-	 {
+	@Override
+	public Object getChoiceFromOptions(List<ParkData> options) {
 		Object choice = null;
 		while(choice == null) {
 			displayMenuOptions(options);
@@ -28,17 +27,15 @@ abstract class Menu {
 		}
 		return choice;
 	}
-	*/
-	
-	protected abstract Object getChoiceFromUserInput(List<ParkData> options);
-	/*
-	{
+
+	@Override
+	protected Object getChoiceFromUserInput(List<ParkData> options) {
 		Object choice = null;
 		String userInput = in.nextLine();
 		try {
 			int selectedOption = Integer.valueOf(userInput);
-			if(selectedOption <= options.length) {
-				choice = options[selectedOption - 1];
+			if(selectedOption <= options.size()) {
+				choice = options.get(selectedOption - 1);
 			}
 		} catch(NumberFormatException e) {
 			// eat the exception, an error message will be displayed below since choice will be null
@@ -48,18 +45,15 @@ abstract class Menu {
 		}
 		return choice;
 	}
-	 */
-	
-	protected abstract void displayMenuOptions(List<ParkData> options);
-	/*
-	{
+
+	protected void displayMenuOptions(List<ParkData> options) {
 		out.println();
-		for(int i = 0; i < options.length; i++) {
+		for(int i = 0; i < options.size(); i++) {
 			int optionNum = i+1;
-			out.println(optionNum+") "+options[i]);
+			out.println(optionNum+") "+options.get(i));
 		}
 		out.print("\nPlease choose an option >>> ");
 		out.flush();
 	}
-	*/
+	
 }

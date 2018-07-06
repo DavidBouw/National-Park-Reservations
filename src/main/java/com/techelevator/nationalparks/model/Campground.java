@@ -1,6 +1,6 @@
 package com.techelevator.nationalparks.model;
 
-public class Campground {
+public class Campground extends ParkData{
 
 	private long campgroundId;
 	private long parkId;
@@ -57,4 +57,9 @@ public class Campground {
 		this.dailyFee = dailyFee;
 	}
 
+	@Override
+	public String toString() {
+		return this.name;
+	}
+	
 }
