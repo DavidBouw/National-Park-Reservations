@@ -1,6 +1,6 @@
 package com.techelevator.nationalparks.model.jdbc;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 import javax.sql.DataSource;
 
@@ -23,7 +23,7 @@ public class JDBCCampgroundDAO implements CampgroundDAO{
 		aCampground.setCampgroundId(result.getLong("campground_id"));
 		aCampground.setParkId(result.getLong("park_id"));
 		aCampground.setName(result.getString("name"));
-		aCampground.setOpenFromMonth((LocalDate) result.getObject("open_from_mm"));
+		aCampground.setOpenFromMonth(result.getString("open_from_mm"));
 		aCampground.setOpenToMonth(result.getString("open_to_mm"));
 		aCampground.setDailyFee(result.getDouble("daily_fee"));
 		

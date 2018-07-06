@@ -57,4 +57,9 @@ public class Campground {
 		this.dailyFee = dailyFee;
 	}
 
+	@Override
+	public String toString() {
+		return this.name;
+	}
+	
 }

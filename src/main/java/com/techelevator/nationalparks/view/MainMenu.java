@@ -2,20 +2,18 @@ package com.techelevator.nationalparks.view;
 
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.Scanner;
+import java.io.PrintWriter;
 
-public abstract class Menu {
-
-	private PrintWriter out;
+public class MainMenu extends Menu{
 	private Scanner in;
-
-	public Menu() {
-		this.out = new PrintWriter(System.out);
-		this.in = new Scanner(System.in);
+	private PrintWriter out;
+	
+	public MainMenu() {
+		super();
 	}
 	
-
+	@Override
 	public Object getChoiceFromOptions(Object[] options) {
 		Object choice = null;
 		while(choice == null) {
@@ -25,6 +23,7 @@ public abstract class Menu {
 		return choice;
 	}
 
+	@Override
 	private Object getChoiceFromUserInput(Object[] options) {
 		Object choice = null;
 		String userInput = in.nextLine();
@@ -42,6 +41,7 @@ public abstract class Menu {
 		return choice;
 	}
 
+	@Override
 	private void displayMenuOptions(Object[] options) {
 		out.println();
 		for(int i = 0; i < options.length; i++) {
@@ -51,4 +51,5 @@ public abstract class Menu {
 		out.print("\nPlease choose an option >>> ");
 		out.flush();
 	}
+	
 }
