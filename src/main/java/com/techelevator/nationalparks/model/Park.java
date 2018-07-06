@@ -2,7 +2,7 @@ package com.techelevator.nationalparks.model;
 
 import java.sql.Date;
 
-public class Park {
+public class Park extends ParkData{
 
 	private long parkId;
 	private String name;

@@ -1,11 +1,12 @@
 package com.techelevator.nationalparks.view;
 
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Scanner;
 
-public abstract class Menu {
+import com.techelevator.nationalparks.model.ParkData;
+
+abstract class Menu {
 
 	private PrintWriter out;
 	private Scanner in;
@@ -16,7 +17,10 @@ public abstract class Menu {
 	}
 	
 
-	public Object getChoiceFromOptions(Object[] options) {
+	abstract Object getChoiceFromOptions(List<ParkData> options);
+	
+	/*
+	 {
 		Object choice = null;
 		while(choice == null) {
 			displayMenuOptions(options);
@@ -24,8 +28,11 @@ public abstract class Menu {
 		}
 		return choice;
 	}
-
-	private Object getChoiceFromUserInput(Object[] options) {
+	*/
+	
+	protected abstract Object getChoiceFromUserInput(List<ParkData> options);
+	/*
+	{
 		Object choice = null;
 		String userInput = in.nextLine();
 		try {
@@ -41,8 +48,11 @@ public abstract class Menu {
 		}
 		return choice;
 	}
-
-	private void displayMenuOptions(Object[] options) {
+	 */
+	
+	protected abstract void displayMenuOptions(List<ParkData> options);
+	/*
+	{
 		out.println();
 		for(int i = 0; i < options.length; i++) {
 			int optionNum = i+1;
@@ -51,4 +61,5 @@ public abstract class Menu {
 		out.print("\nPlease choose an option >>> ");
 		out.flush();
 	}
+	*/
 }
