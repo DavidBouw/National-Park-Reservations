@@ -1,6 +1,8 @@
 package com.techelevator.nationalparks.model.jdbc;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -15,6 +17,27 @@ public class JDBCCampgroundDAO implements CampgroundDAO{
 
 	public JDBCCampgroundDAO(DataSource dataSource) {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	public List<Campground> getAllCampgrounds(Long parkId){
+		ArrayList<Campground> campgrounds = new ArrayList<>();
+		String sqlGetAllCampgrounds= 
+		"SELECT * FROM campground WHERE park_id = ? ORDER BY campground_id ASC";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetAllCampgrounds, parkId);
+		while(results.next()) {
+			Campground theCampground = mapRowToCampground(results);
+			campgrounds.add(theCampground);
+		}
+		return campgrounds;
+	}
+	
+	public Campground getCampgroundById(Long campgroundId) {
+		Campground campground = new Campground();
+		String sqlGetCampgroundById= 
+		"SELECT * FROM campground WHERE campground_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCampgroundById, campgroundId);
+		campground = mapRowToCampground(results);
+		return campground;
 	}
 	
 	private Campground mapRowToCampground(SqlRowSet result) {

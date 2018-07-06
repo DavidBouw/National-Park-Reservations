@@ -1,5 +1,7 @@
 package com.techelevator.nationalparks.model;
 
+import java.time.LocalDate;
+
 public interface ReservationDAO {
 	public Reservation getReservationById(Long reservationId);
 
