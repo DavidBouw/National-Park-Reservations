@@ -1,22 +1,17 @@
 package com.techelevator.nationalparks.model;
 
-<<<<<<< HEAD
+
 import java.time.LocalDate;
-=======
-import java.sql.Date;
->>>>>>> dc89b9218ee276a98a927bb173b9b0721cc3d56f
+
 
 public interface ReservationDAO {
+	
 	public Reservation getReservationById(Long reservationId);
 
-<<<<<<< HEAD
+
 	public long createNewReservation(Long siteId, String name, LocalDate fromDate,
 		       	LocalDate toDate);
-=======
-	public void createNewReservation(Long siteId, String name, Date fromDate,
-		       	Date toDate);
->>>>>>> dc89b9218ee276a98a927bb173b9b0721cc3d56f
 
 	//This is not part of the spec. Implement it if there's time.
-	public void deleteReservation(Long reservationId);
+	public void deleteReservation(long reservationId);
 }

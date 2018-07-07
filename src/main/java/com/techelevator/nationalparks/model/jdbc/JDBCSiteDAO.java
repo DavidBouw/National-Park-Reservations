@@ -9,7 +9,6 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-import com.techelevator.nationalparks.model.Campground;
 import com.techelevator.nationalparks.model.Site;
 import com.techelevator.nationalparks.model.SiteDAO;
 
@@ -21,18 +20,28 @@ public class JDBCSiteDAO implements SiteDAO {
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	public Site getSiteById(Long siteId) {
+	public Site getSiteById(long siteId) {
 		Site site = new Site();
 		String sqlGetSiteById = "SELECT * FROM site WHERE site_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetSiteById, siteId);
+		if (!results.next()) {
+			throw new Error("Did not find expected result");
+		}
 		site = mapRowToSite(results);
+		if (results.next()) {
+			throw new Error("Found too many results");
+		}
 		return site;
 	}
 
-	// TODO Write query
-	public List<Site> getAvailableSites(Long campgroundId, LocalDate from_date, LocalDate to_date) {
+	public List<Site> getAvailableSites(long campgroundId, LocalDate from_date, LocalDate to_date)  {
 		ArrayList<Site> availableSites = new ArrayList<Site>();
-		String sqlFindAllAvailableSites = "WRITE ME!!!";
+		String sqlFindAllAvailableSites = " SELECT s.*\n" + 
+				" FROM site s\n" + 
+				" JOIN reservation r on r.site_id = s.site_id\n" + 
+				" JOIN campground c on c.campground_id = s.campground_id\n" + 
+				" WHERE (c.campground_id = ?)\n" + 
+				" AND ((?,?) OVERLAPS (r.from_date, r.to_date) = false)";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlFindAllAvailableSites, campgroundId, from_date, to_date);
 		while (results.next()) {
 			Site theSite = mapRowToSite(results);
@@ -41,9 +50,9 @@ public class JDBCSiteDAO implements SiteDAO {
 		return availableSites;
 	}
 
-	private Site mapRowToSite(SqlRowSet result) {
+	private Site mapRowToSite(SqlRowSet result)   {
 		Site aSite = new Site();
-
+		
 		aSite.setSiteId(result.getLong("site_id"));
 		aSite.setCampgroundId(result.getLong("campground_id"));
 		aSite.setSiteNumber(result.getLong("site_number"));
@@ -51,7 +60,8 @@ public class JDBCSiteDAO implements SiteDAO {
 		aSite.setAccessible(result.getBoolean("accessible"));
 		aSite.setMaxRvLength(result.getInt("max_rv_length"));
 		aSite.setUtilities(result.getBoolean("utilities"));
-
+		
 		return aSite;
 	}
+	
 }

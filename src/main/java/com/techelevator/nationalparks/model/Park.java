@@ -1,13 +1,13 @@
 package com.techelevator.nationalparks.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Park extends ParkData{
 
 	private long parkId;
 	private String name;
 	private String location;
-	private Date establishDate;
+	private LocalDate establishDate;
 	private long area;
 	private long visitors;
 	private String description;
@@ -36,14 +36,12 @@ public class Park extends ParkData{
 		this.location = location;
 	}
 
-	public Date getEstablishDate() {
-		
-		//TODO Implement String to LocalDate conversion here
+	public LocalDate getEstablishDate() {
 		
 		return this.establishDate;
 	}
 
-	public void setEstablishDate(Date established) {
+	public void setEstablishDate(LocalDate established) {
 		this.establishDate = established;
 	}
 

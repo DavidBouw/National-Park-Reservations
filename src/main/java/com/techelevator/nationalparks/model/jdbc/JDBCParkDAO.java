@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
-import com.techelevator.nationalparks.model.Campground;
 import com.techelevator.nationalparks.model.Park;
 import com.techelevator.nationalparks.model.ParkDAO;
 
@@ -32,15 +31,16 @@ public class JDBCParkDAO implements ParkDAO {
 
 	private Park mapRowToPark(SqlRowSet result) {
 		Park aPark = new Park();
-
+		
 		aPark.setPark_id(result.getLong("park_id"));
 		aPark.setName(result.getString("name"));
 		aPark.setLocation(result.getString("location"));
-		aPark.setEstablishDate(result.getString("establish_date"));
+		
+		aPark.setEstablishDate(result.getDate("establish_date").toLocalDate());
 		aPark.setArea(result.getLong("area"));
 		aPark.setVisitors(result.getLong("visitors"));
 		aPark.setDescription(result.getString("description"));
-
+		
 		return aPark;
 	}
 

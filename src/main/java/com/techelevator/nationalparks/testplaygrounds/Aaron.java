@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class Aaron {
 
+	//Need to make sure reservations are equal to or past current date
+	//
+	
 	public static void main(String[] args) throws ParseException {
 
 		String userDateString = getValidDate("What is the arrival date?");

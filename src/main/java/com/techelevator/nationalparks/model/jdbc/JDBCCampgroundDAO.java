@@ -1,12 +1,8 @@
 package com.techelevator.nationalparks.model.jdbc;
 
-<<<<<<< HEAD
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
-=======
-import java.sql.Date;
->>>>>>> dc89b9218ee276a98a927bb173b9b0721cc3d56f
 
 import javax.sql.DataSource;
 
@@ -40,13 +36,19 @@ public class JDBCCampgroundDAO implements CampgroundDAO{
 		String sqlGetCampgroundById= 
 		"SELECT * FROM campground WHERE campground_id = ?";
 		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetCampgroundById, campgroundId);
+		if (!results.next()) {
+			throw new Error("Did not find expected result");
+		}
 		campground = mapRowToCampground(results);
+		if (results.next()) {
+			throw new Error("Found too many results");
+		}
 		return campground;
 	}
 	
 	private Campground mapRowToCampground(SqlRowSet result) {
 		Campground aCampground = new Campground();
-		
+	
 		aCampground.setCampgroundId(result.getLong("campground_id"));
 		aCampground.setParkId(result.getLong("park_id"));
 		aCampground.setName(result.getString("name"));

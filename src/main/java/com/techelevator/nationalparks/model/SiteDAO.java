@@ -6,8 +6,8 @@ import java.sql.Date;
 
 public interface SiteDAO {
 
-	public List<Site> getAvailableSites(Long campgroundId, Date from_date,
-			Date to_date);
+	public List<Site> getAvailableSites(long campgroundId, LocalDate from_date,
+			LocalDate to_date);
 	
-	public Site getSiteById(Long siteId);
+	public Site getSiteById(long siteId);
 }

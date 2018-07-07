@@ -1,15 +1,16 @@
 package com.techelevator.nationalparks.model;
 
-import java.sql.Date;
+
+import java.time.LocalDate;
 
 public class Reservation extends ParkData{
 
 	private long reservationId;
 	private long siteId;
 	private String name;
-	private Date fromDate;
-	private Date toDate;
-	private Date createDate;
+	private LocalDate fromDate;
+	private LocalDate toDate;
+	private LocalDate createDate;
 
 	public long getReservationId() {
 		return this.reservationId;
@@ -35,27 +36,27 @@ public class Reservation extends ParkData{
 		this.name = name;
 	}
 
-	public Date getFromDate() {
+	public LocalDate getFromDate() {
 		return this.fromDate;
 	}
 
-	public void setFromDate(Date fromDate) {
+	public void setFromDate(LocalDate fromDate) {
 		this.fromDate = fromDate;
 	}
 
-	public Date getToDate() {
+	public LocalDate getToDate() {
 		return this.toDate;
 	}
 
-	public void setToDate(Date toDate) {
+	public void setToDate(LocalDate toDate) {
 		this.toDate = toDate;
 	}
 
-	public Date getCreateDate() {
+	public LocalDate getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(LocalDate createDate) {
 		this.createDate = createDate;
 	}
 
