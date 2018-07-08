@@ -4,21 +4,26 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 public class Aaron {
 
-	//Need to make sure reservations are equal to or past current date
-	//
-	
 	public static void main(String[] args) throws ParseException {
 
-		String userDateString = getValidDate("What is the arrival date?");
+		String userFromDateString = getValidDate("What is the arrival date?");
 
-		System.out.println(userDateString);
+		LocalDate formattedFromDate = formatDate(userFromDateString);
+		formattedFromDate = validFromDateChecker(formattedFromDate);
 
-		LocalDate formattedDate = formatDate(userDateString);
-		System.out.println(formattedDate);
+		String userToDateString = getValidDate("What is the departure date?");
+		LocalDate formattedToDate = formatDate(userToDateString);
+		formattedToDate = validToDateChecker(formattedFromDate, formattedToDate);
+
+		long stayLength = getStayLength(formattedFromDate, formattedToDate);
+
+		System.out.println("You've booked a stay at Mars National Park from " + formattedFromDate + " to "
+				+ formattedToDate + "." + " Which is " + stayLength + " day(s).");
 
 	}
 
@@ -44,6 +49,29 @@ public class Aaron {
 		DateTimeFormatter dTF = DateTimeFormatter.ofPattern("MM/dd/uuuu");
 		LocalDate lds = LocalDate.parse(userDateString, dTF);
 		return lds;
+	}
+
+	private static LocalDate validFromDateChecker(LocalDate userFromDate) {
+		LocalDate createDate = LocalDate.now();
+		while (userFromDate.isBefore(createDate)) {
+			String userStringDate = getValidDate("You cannot book a date in the past. Please try again.");
+			userFromDate = formatDate(userStringDate);
+		}
+		return userFromDate;
+	}
+
+	private static LocalDate validToDateChecker(LocalDate userFromDate, LocalDate userToDate) {
+		while (userToDate.isBefore(userFromDate)) {
+			String userStringDate = getValidDate(
+					"Your departure date must be after your arrival date. Please try again.");
+			userToDate = formatDate(userStringDate);
+		}
+		return userToDate;
+	}
+
+	private static long getStayLength(LocalDate userFromDate, LocalDate userToDate) {
+		long stayLength = ChronoUnit.DAYS.between(userFromDate, userToDate);
+		return stayLength;
 	}
 
 }

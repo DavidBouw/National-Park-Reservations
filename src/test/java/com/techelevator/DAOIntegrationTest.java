@@ -54,11 +54,7 @@ public class DAOIntegrationTest {
 	private static final LocalDate TEST_FROM_DATE = LocalDate.of(2020, 9, 9);
 	private static final LocalDate TEST_TO_DATE = LocalDate.of(2020, 9, 13);
 	private static final LocalDate TEST_CREATE_DATE = LocalDate.of(2020, 9, 2);
-
-	private static final LocalDate TEST_FROM_DATE_BEFORE = LocalDate.of(2000, 9, 9);
-	private static final LocalDate TEST_TO_DATE_BEFORE = LocalDate.of(2000, 9, 13);
-	
-	
+		
 	private JDBCParkDAO parkDao;
 	private JDBCCampgroundDAO campgroundDao;
 	private JDBCSiteDAO siteDao;
@@ -149,13 +145,7 @@ public class DAOIntegrationTest {
 		assertNotNull(reservation);
 		assertEquals(reservation.getName(), TEST_RESERVATION_NAME);
 	}
-	//Again not sure if this throwing an error will cause program to stop or not
-	@Test(expected=Error.class)
-	public void create_reservation_in_past_test() {
-		reservationDao.createNewReservation(TEST_SITE_ID, TEST_RESERVATION_NAME, TEST_FROM_DATE_BEFORE,
-				TEST_TO_DATE_BEFORE);	
-	}
-	
+
 	@Test
 	public void get_reservation_by_id_test() {
 		Reservation reservation = new Reservation();

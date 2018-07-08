@@ -34,15 +34,10 @@ public class JDBCReservationDAO implements ReservationDAO {
 		return reservation;
 	}
 	
-	//TODO Not sure if throwing an error here will cause program to exit, might need a try/catch block
-	//or loop this method inside a while loop and have it keep going until no error?
 	public long createNewReservation(Long siteId, String name, LocalDate fromDate, LocalDate toDate) {
 		String sqlInsertReservation = "INSERT INTO reservation ( site_id, name, from_date, to_date, create_date) "
 				+ "VALUES(?, ?, ?, ?, ?) RETURNING reservation_id";
 		LocalDate createDate = LocalDate.now();
-		if ((fromDate.isBefore(createDate)) || (toDate.isBefore(createDate))) {
-			throw new Error("You cannot book a date in the past");
-		}
 		long reservationId = jdbcTemplate.queryForObject(sqlInsertReservation, 
 				Long.class, 
 				siteId, 
