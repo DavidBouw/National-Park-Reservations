@@ -36,7 +36,7 @@ public class JDBCSiteDAO implements SiteDAO {
 
 	public List<Site> getAvailableSites(long campgroundId, LocalDate from_date, LocalDate to_date)  {
 		ArrayList<Site> availableSites = new ArrayList<Site>();
-		String sqlFindAllAvailableSites = " SELECT s.*\n" + 
+		String sqlFindAllAvailableSites = " SELECT DISTINCT s.*\n" + 
 				" FROM site s\n" + 
 				" JOIN reservation r on r.site_id = s.site_id\n" + 
 				" JOIN campground c on c.campground_id = s.campground_id\n" + 
