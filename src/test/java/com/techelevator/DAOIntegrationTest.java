@@ -137,6 +137,15 @@ public class DAOIntegrationTest {
 	}
 
 	@Test
+	public void get_total_cost_of_stay_test() {
+		double totalCost = campgroundDao.getTotalCostOfStay(1000, 1);
+		assertEquals(totalCost, 12.34, 0.00);
+		double totalCostTwoDays = campgroundDao.getTotalCostOfStay(1000, 2);
+		assertEquals(totalCostTwoDays, 24.68, 0.00);
+	}
+	
+	
+	@Test
 	public void create_new_reservation_test() {
 		Reservation reservation = new Reservation();
 		long nextId = reservationDao.createNewReservation(TEST_SITE_ID, TEST_RESERVATION_NAME, TEST_FROM_DATE,

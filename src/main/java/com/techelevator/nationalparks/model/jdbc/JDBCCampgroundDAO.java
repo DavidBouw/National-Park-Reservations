@@ -46,6 +46,28 @@ public class JDBCCampgroundDAO implements CampgroundDAO{
 		return campground;
 	}
 	
+	public double getTotalCostOfStay(long campgroundId, long stayLength) {
+		double totalCost;
+		String sqlGetPrice = "SELECT daily_fee*? as total_cost\n" + 
+				" FROM campground\n" + 
+				" WHERE campground_id = ?";
+		SqlRowSet results = jdbcTemplate.queryForRowSet(sqlGetPrice, stayLength, campgroundId);
+		if (!results.next()) {
+			throw new Error("Did not find expected result");
+		}
+		totalCost = mapRowToTotalCost(results);
+		if (results.next()) {
+			throw new Error("Found too many results");
+		}
+		return totalCost;
+	}
+	
+	
+	private double mapRowToTotalCost(SqlRowSet result) {
+		double totalCost = result.getDouble("total_cost");
+		return totalCost;	
+	}
+	
 	private Campground mapRowToCampground(SqlRowSet result) {
 		Campground aCampground = new Campground();
 	
